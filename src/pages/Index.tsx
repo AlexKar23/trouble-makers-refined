@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { ImgPlaceholder } from "@/components/ImgPlaceholder";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/products";
+import { heroImages, ugcImages, productImages } from "@/lib/product-images";
 
 const reviews = [
   { author: "Lucía M.", text: "La calidad es increíble. Llevo el anillo todos los días y sigue como nuevo.", rating: 5 },
@@ -12,15 +13,14 @@ const reviews = [
 ];
 
 const collections = [
-  { slug: "pendientes", name: "Pendientes", count: 14, swatch: "gold" as const },
-  { slug: "anillos",    name: "Anillos",    count: 8,  swatch: "silver" as const },
-  { slug: "colgantes",  name: "Colgantes",  count: 6,  swatch: "rose" as const },
-  { slug: "minis",      name: "Mini Aritos",count: 9,  swatch: "teal" as const },
+  { slug: "pendientes", name: "Pendientes", count: 14, swatch: "gold"   as const, src: productImages["pendientes-conchas"]?.[0] },
+  { slug: "anillos",    name: "Anillos",    count: 8,  swatch: "silver" as const, src: productImages["anillo-mandala"]?.[0] },
+  { slug: "colgantes",  name: "Colgantes",  count: 6,  swatch: "rose"   as const, src: productImages["colgante-tigre"]?.[0] },
+  { slug: "minis",      name: "Mini Aritos",count: 9,  swatch: "teal"   as const, src: productImages["mini-aritos-piedras-fucsias"]?.[0] },
 ];
 
 const Home = () => {
   const bestsellers = products.filter((p) => p.badge === "Bestseller").slice(0, 4);
-  const ugc = ["gold","silver","rose","teal","gold","silver"] as const;
 
   return (
     <Layout>
@@ -45,8 +45,8 @@ const Home = () => {
             </div>
           </div>
           <div className="md:col-span-5 grid grid-cols-2 gap-4">
-            <ImgPlaceholder swatch="gold" ratio="portrait" label="Editorial 01" className="translate-y-8" />
-            <ImgPlaceholder swatch="teal" ratio="portrait" label="Editorial 02" />
+            <ImgPlaceholder src={heroImages[0]} swatch="gold" ratio="portrait" label="Editorial 01" className="translate-y-8" loading="eager" />
+            <ImgPlaceholder src={heroImages[1]} swatch="teal" ratio="portrait" label="Editorial 02" loading="eager" />
           </div>
         </div>
       </section>
