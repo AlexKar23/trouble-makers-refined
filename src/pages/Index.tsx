@@ -78,7 +78,7 @@ const Home = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {collections.map((c) => (
             <Link key={c.slug} to={`/coleccion/${c.slug}`} className="group">
-              <ImgPlaceholder swatch={c.swatch} ratio="portrait" label={c.name} className="transition-transform duration-700 group-hover:scale-[1.03]" />
+              <ImgPlaceholder src={c.src} swatch={c.swatch} ratio="portrait" label={c.name} className="transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="flex items-baseline justify-between mt-4">
                 <p className="font-display text-2xl">{c.name}</p>
                 <p className="text-xs text-muted-foreground">{c.count} piezas</p>
