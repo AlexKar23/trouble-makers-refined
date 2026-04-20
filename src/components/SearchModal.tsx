@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { products } from "@/lib/products";
 import { ImgPlaceholder } from "./ImgPlaceholder";
 import { productImages } from "@/lib/product-images";
 
 export const SearchModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [q, setQ] = useState("");
+  const { t } = useTranslation();
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
     if (!s) return products.slice(0, 4);
