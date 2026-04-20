@@ -3,6 +3,7 @@ import { Search, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { products } from "@/lib/products";
 import { ImgPlaceholder } from "./ImgPlaceholder";
+import { productImages } from "@/lib/product-images";
 
 export const SearchModal = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
   const [q, setQ] = useState("");
@@ -43,7 +44,7 @@ export const SearchModal = ({ open, onClose }: { open: boolean; onClose: () => v
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {results.map((p) => (
               <Link key={p.slug} to={`/producto/${p.slug}`} onClick={onClose} className="group">
-                <ImgPlaceholder swatch={p.swatches[0]} label={p.name} ratio="square" />
+                <ImgPlaceholder src={productImages[p.slug]?.[0]} swatch={p.swatches[0]} label={p.name} ratio="square" />
                 <p className="mt-2 font-display text-lg leading-tight">{p.name}</p>
                 <p className="text-xs text-muted-foreground">{p.price}€</p>
               </Link>

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useCart, FREE_SHIPPING } from "@/lib/cart";
 import { ImgPlaceholder } from "./ImgPlaceholder";
 import { products, swatchMeta } from "@/lib/products";
+import { productImages } from "@/lib/product-images";
 
 export const CartDrawer = () => {
   const { isOpen, close, lines, remove, setQty, subtotal, applyPromo, promo, discount, add } = useCart();

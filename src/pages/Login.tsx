@@ -10,7 +10,7 @@ const Login = () => {
     <Layout hideTrust>
       <div className="container py-16 grid lg:grid-cols-2 gap-12 items-stretch min-h-[70vh]">
         <div className="hidden lg:block">
-          <ImgPlaceholder swatch="gold" ratio="portrait" label="Tu joyero" className="h-full" />
+          <ImgPlaceholder src={require("@/lib/product-images").heroImages?.[0]} swatch="gold" ratio="portrait" label="Tu joyero" className="h-full" />
         </div>
         <div className="max-w-md w-full mx-auto self-center">
           <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3"><span className="editorial-rule mr-3" /> Mi cuenta</p>
