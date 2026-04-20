@@ -16,11 +16,15 @@ const Producto = () => {
   const product = getProduct(slug);
   const [swatch, setSwatch] = useState<SwatchKey>(product?.swatches[0] ?? "gold");
   const [qty, setQty] = useState(1);
+  const [activeImg, setActiveImg] = useState(0);
   const { add } = useCart();
   if (!product) return <Navigate to="/" replace />;
 
   const related = products.filter((p) => p.slug !== product.slug && p.category === product.category).slice(0, 4);
   const galleryTones: SwatchKey[] = [swatch, swatch === "gold" ? "silver" : "gold", swatch === "rose" ? "teal" : "rose"];
+  const imgs = productImages[product.slug] ?? [];
+  const mainImg = imgs[0];
+  const thumbs = imgs.length > 0 ? imgs.slice(0, 4) : [];
 
   return (
     <Layout>
@@ -35,14 +39,25 @@ const Producto = () => {
           {/* Gallery */}
           <div className="grid grid-cols-6 gap-3">
             <div className="hidden lg:flex col-span-1 flex-col gap-3">
-              {galleryTones.map((t, i) => (
-                <button key={i} onClick={() => setSwatch(t)}>
-                  <ImgPlaceholder swatch={t} label={`0${i+1}`} />
+              {(thumbs.length > 0 ? thumbs : galleryTones).map((t, i) => (
+                <button key={i} onClick={() => thumbs.length > 0 ? setActiveImg(i) : setSwatch(t as SwatchKey)}>
+                  <ImgPlaceholder
+                    src={typeof t === "string" && t.startsWith("http") ? t : undefined}
+                    swatch={typeof t === "string" && !t.startsWith("http") ? (t as SwatchKey) : swatch}
+                    label={`0${i+1}`}
+                  />
                 </button>
               ))}
             </div>
             <div className="col-span-6 lg:col-span-5">
-              <ImgPlaceholder key={swatch} swatch={swatch} label={product.name} ratio="portrait" className="animate-fade-in" />
+              <ImgPlaceholder
+                key={(thumbs[activeImg] ?? mainImg ?? swatch) as string}
+                src={thumbs[activeImg] ?? mainImg}
+                swatch={swatch}
+                label={product.name}
+                ratio="portrait"
+                className="animate-fade-in"
+              />
             </div>
           </div>
 
@@ -94,7 +109,7 @@ const Producto = () => {
               </button>
             </div>
             <button className="mt-3 w-full bg-foreground text-background py-3.5 text-xs uppercase tracking-[0.2em] font-medium hover:bg-primary transition-colors">
-              Comprar con  Pay
+              Comprar con Apple Pay
             </button>
 
             {/* Trust mini */}
