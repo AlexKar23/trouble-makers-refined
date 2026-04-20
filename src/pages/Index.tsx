@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Quote } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Layout } from "@/components/Layout";
 import { ImgPlaceholder } from "@/components/ImgPlaceholder";
 import { ProductCard } from "@/components/ProductCard";
@@ -12,15 +13,15 @@ const reviews = [
   { author: "Andrea R.", text: "Por fin una marca de bisutería que no me da alergia. Y los diseños son preciosos.", rating: 5 },
 ];
 
-const collections = [
-  { slug: "pendientes", name: "Pendientes", count: 14, swatch: "gold"   as const, src: productImages["pendientes-conchas"]?.[0] },
-  { slug: "anillos",    name: "Anillos",    count: 8,  swatch: "silver" as const, src: productImages["anillo-mandala"]?.[0] },
-  { slug: "colgantes",  name: "Colgantes",  count: 6,  swatch: "rose"   as const, src: productImages["colgante-tigre"]?.[0] },
-  { slug: "minis",      name: "Mini Aritos",count: 9,  swatch: "teal"   as const, src: productImages["mini-aritos-piedras-fucsias"]?.[0] },
-];
-
 const Home = () => {
+  const { t } = useTranslation();
   const bestsellers = products.filter((p) => p.badge === "Bestseller").slice(0, 4);
+  const collections = [
+    { slug: "pendientes", name: t("nav.earrings"), count: 14, swatch: "gold"   as const, src: productImages["pendientes-conchas"]?.[0] },
+    { slug: "anillos",    name: t("nav.rings"),    count: 8,  swatch: "silver" as const, src: productImages["anillo-mandala"]?.[0] },
+    { slug: "colgantes",  name: t("nav.pendants"), count: 6,  swatch: "rose"   as const, src: productImages["colgante-tigre"]?.[0] },
+    { slug: "minis",      name: t("nav.minis"),    count: 9,  swatch: "teal"   as const, src: productImages["mini-aritos-piedras-fucsias"]?.[0] },
+  ];
 
   return (
     <Layout>
@@ -29,19 +30,16 @@ const Home = () => {
         <div className="grid md:grid-cols-12 gap-8 items-end">
           <div className="md:col-span-7 fade-in-up">
             <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-6">
-              <span className="editorial-rule mr-3" /> SS · Madrid · 2026
+              <span className="editorial-rule mr-3" /> {t("home.kicker")}
             </p>
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95]">
-              Joyas que <em className="italic text-primary">cuentan</em><br />
-              tu historia.
+              {t("home.title1")} <em className="italic text-primary">{t("home.titleEm")}</em><br />
+              {t("home.title2")}
             </h1>
-            <p className="mt-8 max-w-md text-base text-muted-foreground leading-relaxed">
-              Bisutería artesanal pensada para viajar contigo. Diseñada y montada a mano en Madrid,
-              con materiales hipoalergénicos que sobreviven al mar, al perfume y al tiempo.
-            </p>
+            <p className="mt-8 max-w-md text-base text-muted-foreground leading-relaxed">{t("home.intro")}</p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <Link to="/coleccion/nueva" className="btn-primary">Descubrir colección</Link>
-              <Link to="/coleccion/pendientes" className="btn-ghost">Ver pendientes</Link>
+              <Link to="/coleccion/nueva" className="btn-primary">{t("home.ctaPrimary")}</Link>
+              <Link to="/coleccion/pendientes" className="btn-ghost">{t("home.ctaSecondary")}</Link>
             </div>
           </div>
           <div className="md:col-span-5 grid grid-cols-2 gap-4">
@@ -56,8 +54,8 @@ const Home = () => {
         <div className="marquee">
           {Array.from({ length: 2 }).map((_, i) => (
             <div key={i} className="flex gap-12 items-center text-[11px] uppercase tracking-[0.3em]">
-              {["Hecho a mano · Madrid", "Hipoalergénico", "Resistente al agua", "Envío gratis +40€", "10% con TROUBLE10", "Atelier propio"].map((t) => (
-                <span key={t} className="flex items-center gap-12">{t} <span className="text-primary">◆</span></span>
+              {[t("marquee.handmade"), t("marquee.hypo"), t("marquee.water"), t("marquee.shipping"), t("marquee.promo"), t("marquee.atelier")].map((m) => (
+                <span key={m} className="flex items-center gap-12">{m} <span className="text-primary">◆</span></span>
               ))}
             </div>
           ))}
@@ -68,11 +66,11 @@ const Home = () => {
       <section className="container py-20 md:py-28">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3"><span className="editorial-rule mr-3" /> Colecciones</p>
-            <h2 className="font-display text-4xl md:text-5xl">Encuentra <em className="italic">tu universo</em>.</h2>
+            <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3"><span className="editorial-rule mr-3" /> {t("home.collectionsKicker")}</p>
+            <h2 className="font-display text-4xl md:text-5xl">{t("home.collectionsTitle1")} <em className="italic">{t("home.collectionsTitleEm")}</em>.</h2>
           </div>
           <Link to="/coleccion/nueva" className="hidden md:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] link-underline">
-            Ver todo <ArrowRight className="h-3.5 w-3.5" />
+            {t("home.viewAll")} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -81,7 +79,7 @@ const Home = () => {
               <ImgPlaceholder src={c.src} swatch={c.swatch} ratio="portrait" label={c.name} className="transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="flex items-baseline justify-between mt-4">
                 <p className="font-display text-2xl">{c.name}</p>
-                <p className="text-xs text-muted-foreground">{c.count} piezas</p>
+                <p className="text-xs text-muted-foreground">{c.count} {t("home.pieces")}</p>
               </div>
             </Link>
           ))}
@@ -91,8 +89,8 @@ const Home = () => {
       {/* Bestsellers */}
       <section className="container py-20">
         <div className="mb-12">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3"><span className="editorial-rule mr-3" /> Bestsellers</p>
-          <h2 className="font-display text-4xl md:text-5xl">Los favoritos <em className="italic">de la casa</em>.</h2>
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3"><span className="editorial-rule mr-3" /> {t("home.bestKicker")}</p>
+          <h2 className="font-display text-4xl md:text-5xl">{t("home.bestTitle1")} <em className="italic">{t("home.bestTitleEm")}</em>.</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
           {bestsellers.map((p) => <ProductCard key={p.slug} product={p} />)}
@@ -102,8 +100,8 @@ const Home = () => {
       {/* Reviews */}
       <section className="container py-20 md:py-28">
         <div className="text-center mb-14">
-          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3">Lo que dicen</p>
-          <h2 className="font-display text-4xl md:text-5xl">+ 12.000 clientas <em className="italic">felices</em>.</h2>
+          <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3">{t("home.reviewsKicker")}</p>
+          <h2 className="font-display text-4xl md:text-5xl">{t("home.reviewsTitle1")} <em className="italic">{t("home.reviewsTitleEm")}</em>.</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           {reviews.map((r, i) => (
@@ -124,7 +122,7 @@ const Home = () => {
         <div className="container py-20">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3">Comunidad</p>
+              <p className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground mb-3">{t("home.communityKicker")}</p>
               <h2 className="font-display text-4xl md:text-5xl">#TravelWith<em className="italic">Trouble</em></h2>
             </div>
             <a href="#" className="text-[11px] uppercase tracking-[0.22em] link-underline">@troublemakers.shop</a>
