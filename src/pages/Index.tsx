@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { ImgPlaceholder } from "@/components/ImgPlaceholder";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/lib/products";
+import { heroImages, ugcImages, productImages } from "@/lib/product-images";
 
 const reviews = [
   { author: "Lucía M.", text: "La calidad es increíble. Llevo el anillo todos los días y sigue como nuevo.", rating: 5 },
@@ -12,15 +13,14 @@ const reviews = [
 ];
 
 const collections = [
-  { slug: "pendientes", name: "Pendientes", count: 14, swatch: "gold" as const },
-  { slug: "anillos",    name: "Anillos",    count: 8,  swatch: "silver" as const },
-  { slug: "colgantes",  name: "Colgantes",  count: 6,  swatch: "rose" as const },
-  { slug: "minis",      name: "Mini Aritos",count: 9,  swatch: "teal" as const },
+  { slug: "pendientes", name: "Pendientes", count: 14, swatch: "gold"   as const, src: productImages["pendientes-conchas"]?.[0] },
+  { slug: "anillos",    name: "Anillos",    count: 8,  swatch: "silver" as const, src: productImages["anillo-mandala"]?.[0] },
+  { slug: "colgantes",  name: "Colgantes",  count: 6,  swatch: "rose"   as const, src: productImages["colgante-tigre"]?.[0] },
+  { slug: "minis",      name: "Mini Aritos",count: 9,  swatch: "teal"   as const, src: productImages["mini-aritos-piedras-fucsias"]?.[0] },
 ];
 
 const Home = () => {
   const bestsellers = products.filter((p) => p.badge === "Bestseller").slice(0, 4);
-  const ugc = ["gold","silver","rose","teal","gold","silver"] as const;
 
   return (
     <Layout>
@@ -45,8 +45,8 @@ const Home = () => {
             </div>
           </div>
           <div className="md:col-span-5 grid grid-cols-2 gap-4">
-            <ImgPlaceholder swatch="gold" ratio="portrait" label="Editorial 01" className="translate-y-8" />
-            <ImgPlaceholder swatch="teal" ratio="portrait" label="Editorial 02" />
+            <ImgPlaceholder src={heroImages[0]} swatch="gold" ratio="portrait" label="Editorial 01" className="translate-y-8" loading="eager" />
+            <ImgPlaceholder src={heroImages[1]} swatch="teal" ratio="portrait" label="Editorial 02" loading="eager" />
           </div>
         </div>
       </section>
@@ -78,7 +78,7 @@ const Home = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {collections.map((c) => (
             <Link key={c.slug} to={`/coleccion/${c.slug}`} className="group">
-              <ImgPlaceholder swatch={c.swatch} ratio="portrait" label={c.name} className="transition-transform duration-700 group-hover:scale-[1.03]" />
+              <ImgPlaceholder src={c.src} swatch={c.swatch} ratio="portrait" label={c.name} className="transition-transform duration-700 group-hover:scale-[1.03]" />
               <div className="flex items-baseline justify-between mt-4">
                 <p className="font-display text-2xl">{c.name}</p>
                 <p className="text-xs text-muted-foreground">{c.count} piezas</p>
@@ -130,8 +130,8 @@ const Home = () => {
             <a href="#" className="text-[11px] uppercase tracking-[0.22em] link-underline">@troublemakers.shop</a>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-            {ugc.map((s, i) => (
-              <ImgPlaceholder key={i} swatch={s} label={`UGC 0${i+1}`} ratio="square" />
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ImgPlaceholder key={i} src={ugcImages[i]} swatch={(["gold","silver","rose","teal","gold","silver"] as const)[i]} label={`UGC 0${i+1}`} ratio="square" />
             ))}
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Product, SwatchKey } from "@/lib/products";
+import { productImages } from "@/lib/product-images";
 import { ImgPlaceholder } from "./ImgPlaceholder";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
@@ -7,14 +8,20 @@ import { useCart } from "@/lib/cart";
 export const ProductCard = ({ product }: { product: Product }) => {
   const [hover, setHover] = useState<SwatchKey>(product.swatches[0]);
   const { add } = useCart();
+  const imgs = productImages[product.slug] ?? [];
+  const primary = imgs[0];
+  const secondary = imgs[1];
 
   return (
     <article
       className="group relative flex flex-col"
       onMouseLeave={() => setHover(product.swatches[0])}
     >
-      <Link to={`/producto/${product.slug}`} className="block relative overflow-hidden">
-        <ImgPlaceholder swatch={hover} label={product.name} ratio="portrait" className="transition-transform duration-700 group-hover:scale-[1.03]" />
+      <Link to={`/producto/${product.slug}`} className="block relative overflow-hidden bg-surface">
+        <ImgPlaceholder src={primary} swatch={hover} label={product.name} ratio="portrait" className="transition-transform duration-700 group-hover:scale-[1.03]" />
+        {secondary && (
+          <img src={secondary} alt="" aria-hidden loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        )}
         {product.badge && (
           <span className="absolute left-3 top-3 bg-background/95 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] font-medium text-foreground">
             {product.badge}

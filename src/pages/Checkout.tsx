@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Check, Lock, ShieldCheck } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ImgPlaceholder } from "@/components/ImgPlaceholder";
+import { productImages } from "@/lib/product-images";
 import { useCart, FREE_SHIPPING } from "@/lib/cart";
 import { swatchMeta } from "@/lib/products";
 
@@ -159,7 +160,7 @@ const Checkout = () => {
               {lines.map((l) => (
                 <div key={l.product.slug+l.swatch} className="flex gap-3">
                   <div className="relative">
-                    <ImgPlaceholder swatch={l.swatch} label={l.product.name} className="w-16 shrink-0" />
+                    <ImgPlaceholder src={productImages[l.product.slug]?.[0]} swatch={l.swatch} label={l.product.name} className="w-16 shrink-0" />
                     <span className="absolute -right-1.5 -top-1.5 h-5 w-5 grid place-items-center rounded-full bg-foreground text-background text-[10px]">{l.qty}</span>
                   </div>
                   <div className="flex-1 min-w-0">

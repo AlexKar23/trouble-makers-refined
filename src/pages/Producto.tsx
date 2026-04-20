@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
-import { Flame, ShieldCheck, Truck, RotateCcw, ChevronDown } from "lucide-react";
+import { Flame, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 import { Layout } from "@/components/Layout";
 import { ImgPlaceholder } from "@/components/ImgPlaceholder";
 import { ProductCard } from "@/components/ProductCard";
 import { getProduct, products, SwatchKey, swatchMeta } from "@/lib/products";
+import { productImages } from "@/lib/product-images";
 import { useCart } from "@/lib/cart";
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
