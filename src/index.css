@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Trouble Makers · Design System ----------
+   Boutique editorial. Verde teal profundo sobre crema.
+   Todos los colores en HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 38 36% 96%;          /* crema editorial */
+    --foreground: 174 38% 12%;         /* verde teal oscuro casi negro */
+
+    --surface: 38 28% 92%;             /* superficies cálidas */
+    --surface-deep: 38 22% 88%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 174 38% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 174 38% 12%;
+
+    --primary: 174 52% 18%;            /* verde corporativo */
+    --primary-foreground: 38 36% 96%;
+    --primary-glow: 168 42% 32%;
+
+    --secondary: 38 28% 92%;
+    --secondary-foreground: 174 38% 12%;
+
+    --muted: 38 20% 90%;
+    --muted-foreground: 174 12% 38%;
+
+    --accent: 32 58% 62%;              /* dorado champán */
+    --accent-foreground: 174 38% 12%;
+
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 174 14% 82%;
+    --input: 174 14% 82%;
+    --ring: 174 52% 22%;
+
+    --radius: 0.25rem;
+
+    /* Brand gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(174 52% 14%) 0%, hsl(168 42% 28%) 100%);
+    --gradient-jewel-gold: linear-gradient(135deg, hsl(38 32% 88%) 0%, hsl(32 58% 72%) 50%, hsl(28 48% 58%) 100%);
+    --gradient-jewel-silver: linear-gradient(135deg, hsl(0 0% 92%) 0%, hsl(220 8% 78%) 50%, hsl(220 6% 62%) 100%);
+    --gradient-jewel-rose: linear-gradient(135deg, hsl(20 40% 90%) 0%, hsl(12 48% 76%) 50%, hsl(8 42% 62%) 100%);
+    --gradient-jewel-teal: linear-gradient(135deg, hsl(168 30% 82%) 0%, hsl(174 42% 50%) 50%, hsl(174 52% 26%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(38 36% 96%) 0%, hsl(38 28% 92%) 100%);
+
+    --shadow-soft: 0 1px 2px hsl(174 38% 12% / 0.04), 0 8px 24px -8px hsl(174 38% 12% / 0.08);
+    --shadow-elevated: 0 2px 4px hsl(174 38% 12% / 0.05), 0 24px 48px -12px hsl(174 38% 12% / 0.18);
+    --shadow-jewel: inset 0 1px 0 hsl(0 0% 100% / 0.4), 0 12px 32px -8px hsl(174 38% 12% / 0.18);
+
+    --transition-silk: cubic-bezier(0.22, 1, 0.36, 1);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 174 38% 8%;
+    --foreground: 38 36% 96%;
+    --card: 174 38% 10%;
+    --card-foreground: 38 36% 96%;
+    --primary: 38 36% 96%;
+    --primary-foreground: 174 38% 12%;
+    --border: 174 18% 22%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4, .font-display { font-family: 'Cormorant Garamond', Georgia, serif; letter-spacing: -0.01em; }
+}
+
+@layer components {
+  /* Premium image placeholders — sin emojis */
+  .img-placeholder {
+    @apply relative overflow-hidden;
+    background: var(--gradient-jewel-gold);
+    box-shadow: var(--shadow-jewel);
+  }
+  .img-placeholder::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 25%, hsl(0 0% 100% / 0.55), transparent 45%),
+      radial-gradient(ellipse at 75% 80%, hsl(174 52% 18% / 0.18), transparent 55%);
+    mix-blend-mode: screen;
+  }
+  .img-placeholder::after {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, hsl(0 0% 100% / 0.04) 0 2px, transparent 2px 8px);
+  }
+  .img-placeholder.silver { background: var(--gradient-jewel-silver); }
+  .img-placeholder.rose   { background: var(--gradient-jewel-rose); }
+  .img-placeholder.teal   { background: var(--gradient-jewel-teal); }
+
+  .img-placeholder .glyph {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: hsl(174 52% 18% / 0.55); letter-spacing: 0.4em;
+    text-transform: uppercase; font-size: 0.7rem;
+    z-index: 2;
+  }
+
+  .editorial-rule {
+    @apply inline-block h-px w-12 align-middle;
+    background: hsl(var(--primary));
+  }
+
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: ""; position: absolute; left: 0; bottom: -2px; height: 1px; width: 100%;
+    background: currentColor; transform: scaleX(0); transform-origin: right;
+    transition: transform 0.5s var(--transition-silk);
+  }
+  .link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs uppercase tracking-[0.18em] font-medium;
+    background: hsl(var(--primary)); color: hsl(var(--primary-foreground));
+    transition: all 0.4s var(--transition-silk);
+  }
+  .btn-primary:hover { background: hsl(var(--primary-glow)); transform: translateY(-1px); }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs uppercase tracking-[0.18em] font-medium border;
+    border-color: hsl(var(--primary)); color: hsl(var(--primary));
+    transition: all 0.4s var(--transition-silk);
+  }
+  .btn-ghost:hover { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+
+  .marquee {
+    display: flex; gap: 3rem; animation: marquee 32s linear infinite;
+    width: max-content;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .fade-in-up { animation: fadeInUp 0.8s var(--transition-silk) both; }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .swatch {
+    @apply h-9 w-9 rounded-full border-2 transition-all;
+    border-color: hsl(var(--border));
+  }
+  .swatch[data-active="true"] {
+    border-color: hsl(var(--primary));
+    transform: scale(1.08);
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 3px hsl(var(--primary));
+  }
+}
