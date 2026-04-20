@@ -130,8 +130,8 @@ const Home = () => {
             <a href="#" className="text-[11px] uppercase tracking-[0.22em] link-underline">@troublemakers.shop</a>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
-            {ugc.map((s, i) => (
-              <ImgPlaceholder key={i} swatch={s} label={`UGC 0${i+1}`} ratio="square" />
+            {Array.from({ length: 6 }).map((_, i) => (
+              <ImgPlaceholder key={i} src={ugcImages[i]} swatch={(["gold","silver","rose","teal","gold","silver"] as const)[i]} label={`UGC 0${i+1}`} ratio="square" />
             ))}
           </div>
         </div>
