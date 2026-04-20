@@ -52,7 +52,7 @@ export const CartDrawer = () => {
           )}
           {lines.map((l) => (
             <div key={l.product.slug + l.swatch} className="flex gap-4">
-              <ImgPlaceholder swatch={l.swatch} label={l.product.name} className="w-20 shrink-0" />
+              <ImgPlaceholder src={productImages[l.product.slug]?.[0]} swatch={l.swatch} label={l.product.name} className="w-20 shrink-0" />
               <div className="flex-1 min-w-0">
                 <div className="flex justify-between gap-2">
                   <p className="font-display text-lg leading-tight">{l.product.name}</p>
@@ -80,7 +80,7 @@ export const CartDrawer = () => {
               <div className="space-y-3">
                 {cross.map((p) => (
                   <div key={p.slug} className="flex items-center gap-3">
-                    <ImgPlaceholder swatch={p.swatches[0]} label={p.name} className="w-14 shrink-0" />
+                    <ImgPlaceholder src={productImages[p.slug]?.[0]} swatch={p.swatches[0]} label={p.name} className="w-14 shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium truncate">{p.name}</p>
                       <p className="text-xs text-muted-foreground">{p.price}€</p>
