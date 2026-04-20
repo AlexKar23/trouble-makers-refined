@@ -32,16 +32,16 @@ export const SearchModal = ({ open, onClose }: { open: boolean; onClose: () => v
             autoFocus
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Buscar joyas, colecciones, materiales…"
+            placeholder={t("search.placeholder")}
             className="flex-1 bg-transparent text-lg outline-none placeholder:text-muted-foreground"
           />
-          <button onClick={onClose} aria-label="Cerrar" className="text-muted-foreground hover:text-foreground">
+          <button onClick={onClose} aria-label={t("nav.close")} className="text-muted-foreground hover:text-foreground">
             <X className="h-5 w-5" />
           </button>
         </div>
         <div className="max-h-[60vh] overflow-auto p-6">
           <p className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-4">
-            {q ? `${results.length} resultados` : "Sugerencias"}
+            {q ? t("search.results", { count: results.length }) : t("search.suggestions")}
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {results.map((p) => (

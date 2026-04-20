@@ -4,10 +4,12 @@ import { productImages } from "@/lib/product-images";
 import { ImgPlaceholder } from "./ImgPlaceholder";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
+import { useTranslation } from "react-i18next";
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const [hover, setHover] = useState<SwatchKey>(product.swatches[0]);
   const { add } = useCart();
+  const { t } = useTranslation();
   const imgs = productImages[product.slug] ?? [];
   const primary = imgs[0];
   const secondary = imgs[1];
@@ -29,7 +31,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         )}
         {product.stock <= 5 && (
           <span className="absolute right-3 top-3 bg-primary/95 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] font-medium text-primary-foreground">
-            Solo {product.stock}
+            {t("product.soloN", { n: product.stock })}
           </span>
         )}
         <button
@@ -37,7 +39,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           onClick={(e) => { e.preventDefault(); add(product); }}
           className="absolute inset-x-3 bottom-3 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-foreground text-background py-3 text-[10px] uppercase tracking-[0.2em] font-medium hover:bg-primary"
         >
-          Añadir al carrito
+          {t("product.addToCartShort")}
         </button>
       </Link>
       <div className="mt-4 flex items-start justify-between gap-3">
