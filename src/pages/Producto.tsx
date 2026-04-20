@@ -13,11 +13,10 @@ import {
 const Producto = () => {
   const { slug = "" } = useParams();
   const product = getProduct(slug);
-  if (!product) return <Navigate to="/" replace />;
-
-  const [swatch, setSwatch] = useState<SwatchKey>(product.swatches[0]);
+  const [swatch, setSwatch] = useState<SwatchKey>(product?.swatches[0] ?? "gold");
   const [qty, setQty] = useState(1);
   const { add } = useCart();
+  if (!product) return <Navigate to="/" replace />;
 
   const related = products.filter((p) => p.slug !== product.slug && p.category === product.category).slice(0, 4);
   const galleryTones: SwatchKey[] = [swatch, swatch === "gold" ? "silver" : "gold", swatch === "rose" ? "teal" : "rose"];
