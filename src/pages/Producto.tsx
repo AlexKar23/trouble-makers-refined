@@ -16,6 +16,7 @@ const Producto = () => {
   const product = getProduct(slug);
   const [swatch, setSwatch] = useState<SwatchKey>(product?.swatches[0] ?? "gold");
   const [qty, setQty] = useState(1);
+  const [activeImg, setActiveImg] = useState(0);
   const { add } = useCart();
   if (!product) return <Navigate to="/" replace />;
 
@@ -24,7 +25,6 @@ const Producto = () => {
   const imgs = productImages[product.slug] ?? [];
   const mainImg = imgs[0];
   const thumbs = imgs.length > 0 ? imgs.slice(0, 4) : [];
-  const [activeImg, setActiveImg] = useState(0);
 
   return (
     <Layout>
