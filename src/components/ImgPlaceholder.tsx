@@ -29,7 +29,7 @@ export const ImgPlaceholder = ({ src, swatch = "gold", label, ratio = "square", 
           alt={label ?? "Trouble Makers"}
           loading={loading}
           onError={() => setFailed(true)}
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-contain p-2"
         />
       </div>
     );
